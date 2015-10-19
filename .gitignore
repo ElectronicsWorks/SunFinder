@@ -1,0 +1,10 @@
+*.pe
+*.pdbx
+*.exe
+*.pdb
+*.dll
+*.cache
+*.suo
+*.user
+bin/
+obj/

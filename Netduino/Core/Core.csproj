@@ -47,16 +47,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MicroLiquidCrystal">
-      <HintPath>..\Bin\MicroLiquidCrystal.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.SPOT.Hardware" />
     <Reference Include="Microsoft.SPOT.Native">
     </Reference>
     <Reference Include="SecretLabs.NETMF.Hardware.Netduino, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System.IO" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MicroLiquidCrystal\MicroLiquidCrystal.csproj">
+      <Project>{B4B72543-E638-44F1-B096-9BBB6BD4698B}</Project>
+      <Name>MicroLiquidCrystal</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y /S $(TargetDir)*  $(SolutionDir)\..\Bin</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

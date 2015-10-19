@@ -3,12 +3,12 @@ using System.Threading;
 using Core;
 using Core.Hardware.I2C;
 using Core.Hardware.RTC;
-using MicroLiquidCrystal;
 //using Microsoft.SPOT;
 //using SecretLabs.NETMF.Hardware.Netduino;
 using SecretLabs.NETMF.Hardware.Netduino;
 using Lcd = Core.Hardware.LCD.Lcd;
 using Math = System.Math;
+using MicroLiquidCrystal;
 
 
 namespace SunFinder
@@ -45,7 +45,7 @@ namespace SunFinder
 
                     while (true)
                     {
-                        var x1 = CalcSun(_latitude, _longitude, DateTime.Now, -5);
+                        var x1 = CalcSun(_latitude, _longitude, DateTime.Now, -4);
 #if DEBUG
                     Debug.Print("azimuth: "+ x1.azimuth.ToString("f2"));
                     Debug.Print("elevation: " + x1.elevation.ToString("f2"));

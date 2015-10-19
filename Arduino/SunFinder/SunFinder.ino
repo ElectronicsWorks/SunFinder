@@ -6,7 +6,7 @@
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 #include "RTClib.h"
-#include <Sun.h>
+#include "Sun.h"
 
 RTC_DS1307 rtc;
 LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 20 chars and 4 line display
