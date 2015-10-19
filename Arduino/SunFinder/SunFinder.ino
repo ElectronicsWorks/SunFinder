@@ -4,9 +4,9 @@
 #define TZ -5
 
 #include <Wire.h> 
-#include <LiquidCrystal_I2C.h>
-#include "RTClib.h"
-#include "Sun.h"
+#include "libraries\LiquidCrystal_I2C\LiquidCrystal_I2C.h"
+#include "libraries\RTClib\RTClib.h"
+#include "libraries\TrackerLib\Sun.h"
 
 RTC_DS1307 rtc;
 LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 20 chars and 4 line display
@@ -14,11 +14,17 @@ Sun sun(LAT, LON, TZ);
 
 void setup()
 {
-  lcd.init();                      // initialize the lcd 
- rtc.begin();
+	Serial.begin(9600);
+	while (!Serial) {
+		; // wait for serial port to connect.
+	}
+  lcd.init(); // initialize the lcd 
+  rtc.begin(); // initialize the clock 
   // Print a message to the LCD.
   lcd.backlight();
-  lcd.print("Arduino Tracker");
+  String t = "L:";
+  t = t + LAT + "/" + LON + " Z:" + TZ ;
+  lcd.print(t);
   if (! rtc.isrunning()) {
     rtc.adjust(DateTime(2014, 11, 17, 15, 15, 0));
     lcd.setCursor(0, 1);

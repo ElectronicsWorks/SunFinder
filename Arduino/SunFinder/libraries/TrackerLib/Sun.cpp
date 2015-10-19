@@ -69,20 +69,20 @@ bool Sun::ItsDark()
 /// <param name="dateTime"></param>
 void Sun::calcSun(unsigned int year, unsigned char month, unsigned char day, unsigned char hour, unsigned char minute, unsigned char second)
 {
-
 	int intYear = year;
-	centuries = intYear/100;
-	leaps = centuries/4;                            
+	centuries = intYear / 100;
+	leaps = centuries / 4;
 	leapDays = 2 - centuries + leaps;         // note is negative!!
 	yearDays = 365.25 * (intYear + 4716);     // days until 1 jan this year
 	monthDays = 30.6001* (month + 1);    // days until 1st month
-	JulianResult = leapDays + day + monthDays + yearDays -1524.5;
+	JulianResult = leapDays + day + monthDays + yearDays - 1524.5;
 
-	fltMins = ((float)minute / 60)/24;
-	fltHrs = (float)hour / 24;
+	fltMins = ((float)minute / 60.0) / 24.0;
+	fltHrs = (float)hour / 24.0;
+	//fltHrs += (float)_zone / 24.0;
 	fltDayDecimal = fltHrs + fltMins;
 	JulianDay = (double)JulianResult + fltDayDecimal;
-	JulianCentury = (JulianDay-2451545)/36525;
+	JulianCentury = (JulianDay - 2451545) / 36525.0;
 
 	//double jd = JD(dateTime.AddHours(zone));
 	//double jc = JulianCent(jd);
@@ -90,15 +90,15 @@ void Sun::calcSun(unsigned int year, unsigned char month, unsigned char day, uns
 	double etime = EquationOfTime(JulianCentury);
 	double eqTime = etime;
 	double solarDec = theta; // in degrees
-	_eqTime = (floor(100*eqTime))/100;
-	_solarDec = (floor(100*(solarDec)))/100;
-	double solarTimeFix = eqTime - 4.0*_longitude + 60.0*_zone;
-	double trueSolarTime = hour*60 + minute + second/60 + solarTimeFix;
+	_eqTime = (floor(100 * eqTime)) / 100.0;
+	_solarDec = (floor(100 * (solarDec))) / 100.0;
+	double solarTimeFix = (eqTime + 4.0*_longitude) - 60.0*_zone;
+	double trueSolarTime = hour * 60 + minute + second / 60.0 + solarTimeFix;
 	while (trueSolarTime > 1440)
 	{
 		trueSolarTime -= 1440;
 	}
-	double hourAngle = trueSolarTime/4.0 - 180.0;
+	double hourAngle = trueSolarTime / 4.0 - 180.0;
 	if (hourAngle < -180)
 	{
 		hourAngle += 360.0;
@@ -118,7 +118,7 @@ void Sun::calcSun(unsigned int year, unsigned char month, unsigned char day, uns
 	double azimuth = 0;
 	if (azDenom > 0.001 || azDenom < -0.001)
 	{
-		double azRad = ((sin(DegreeToRadian(_latitude))*cos(DegreeToRadian(zenith))) - sin(DegreeToRadian(solarDec)))/azDenom;
+		double azRad = ((sin(DegreeToRadian(_latitude))*cos(DegreeToRadian(zenith))) - sin(DegreeToRadian(solarDec))) / azDenom;
 		if (azRad > 1.0)
 		{
 			azRad = 1.0;
@@ -159,7 +159,7 @@ void Sun::calcSun(unsigned int year, unsigned char month, unsigned char day, uns
 		double te = tan(DegreeToRadian(exoatmElevation));
 		if (exoatmElevation > 5.0)
 		{
-			refractionCorrection = 58.1/te - 0.07/(te*te*te) + 0.000086/(te*te*te*te*te);
+			refractionCorrection = 58.1 / te - 0.07 / (te*te*te) + 0.000086 / (te*te*te*te*te);
 		}
 		else if (exoatmElevation > -0.575)
 		{
@@ -167,20 +167,20 @@ void Sun::calcSun(unsigned int year, unsigned char month, unsigned char day, uns
 		}
 		else
 		{
-			refractionCorrection = -20.774/te;
+			refractionCorrection = -20.774 / te;
 		}
-		refractionCorrection = refractionCorrection/3600.0;
+		refractionCorrection = refractionCorrection / 3600.0;
 	}
 	double solarZen = zenith - refractionCorrection;
 	if (solarZen < 108.0)
 	{
 		_dark = false;
 		// astronomical twilight
-		_azimuth = (floor(100*azimuth))/100;
-		_elevation = (floor(100*(90.0 - solarZen)))/100;
+		_azimuth = (floor(100 * azimuth)) / 100;
+		_elevation = (floor(100 * (90.0 - solarZen))) / 100;
 		if (solarZen < 90.0)
 		{
-			_coszen = (floor(10000.0*(cos(DegreeToRadian(solarZen)))))/10000.0;
+			_coszen = (floor(10000.0*(cos(DegreeToRadian(solarZen))))) / 10000.0;
 		}
 		else
 		{

@@ -8,3 +8,4 @@
 *.user
 bin/
 obj/
+__vm/
