@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.Arduino.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SunFinder\libraries\TrackerLib\Sun.h">
       <Filter>Header Files</Filter>
     </ClInclude>

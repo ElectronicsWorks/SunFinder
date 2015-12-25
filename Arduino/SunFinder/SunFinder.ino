@@ -1,7 +1,10 @@
-
+// Ottawa Canada
 #define LAT 45.421389
 #define LON -75.691667
-#define TZ -5
+
+// Sidney Australia
+#define LAT -33.87
+#define LON 151.22
 
 #include <Wire.h> 
 #include "libraries\LiquidCrystal_I2C\LiquidCrystal_I2C.h"
@@ -10,7 +13,8 @@
 
 RTC_DS1307 rtc;
 LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 20 chars and 4 line display
-Sun sun(LAT, LON, TZ);
+
+Sun sun(LAT, LON);
 
 void setup()
 {
@@ -23,7 +27,7 @@ void setup()
   // Print a message to the LCD.
   lcd.backlight();
   String t = "L:";
-  t = t + LAT + "/" + LON + " Z:" + TZ ;
+  t = t + LAT + "/" + LON;
   lcd.print(t);
   if (! rtc.isrunning()) {
     rtc.adjust(DateTime(2014, 11, 17, 15, 15, 0));
