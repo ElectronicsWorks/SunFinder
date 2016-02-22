@@ -1,4 +1,4 @@
-// Ottawa Canada
+// Ottawa On Canada
 #define LAT 45.421389
 #define LON -75.691667
 
